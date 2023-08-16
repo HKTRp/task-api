@@ -1,4 +1,3 @@
-import pytest
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
@@ -7,11 +6,11 @@ from os import environ
 
 load_dotenv()
 
-SQLALCHEMY_TEST_DATABASE_URL = "postgresql://%s:%s@%s:%d/%s" \
+SQLALCHEMY_TEST_DATABASE_URL = "postgresql://%s:%s@%s:%s/%s" \
                                % (environ.get('TEST_DB_LOGIN'),
                                   environ.get('TEST_DB_PASS'),
                                   environ.get('TEST_DB_HOST'),
-                                  int(environ.get('TEST_DB_PORT')),
+                                  environ.get('TEST_DB_PORT'),
                                   environ.get('TEST_DB_NAME'))
 
 engine_test = create_engine(

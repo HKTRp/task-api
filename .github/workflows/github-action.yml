@@ -1,10 +1,22 @@
 name: Workflow for TaskAPI CI
-run-name: FSDF
+run-name: Workflow
 on:
   push:
     branches: [master]
   pull_request:
     branches: [master]
+
+env:
+  DB_LOGIN: postgres
+  DB_PASS: postgres
+  DB_HOST: localhost
+  DB_NAME: db
+  DB_PORT: 6000
+  TEST_DB_LOGIN: postgres
+  TEST_DB_PASS: postgres
+  TEST_DB_HOST: localhost
+  TEST_DB_PORT: 6000
+  TEST_DB_NAME: db
 
 jobs:
   build:
