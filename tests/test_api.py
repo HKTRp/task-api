@@ -23,8 +23,8 @@ def prepare_database():
 app.dependency_overrides[get_db] = get_test_db
 
 
-def create_task(tittle, text=""):
-    return client.post(BASE_URL + 'tasks/', json={'title': tittle, 'text': text})
+def create_task(tittle, text="", deadline=None):
+    return client.post(BASE_URL + 'tasks/', json={'title': tittle, 'text': text, 'deadline': deadline})
 
 
 def get_task_by_id(task_id):
@@ -38,7 +38,7 @@ def test_task_creation():
     assert check['title'] == 'New task'
     assert check['text'] == ''
     assert check['completed'] is False
-    assert check['completed_at'] is None
+    assert check['deadline'] is None
 
 
 def test_get_tasks_list():
@@ -81,7 +81,6 @@ def test_task_completion():
     client.patch(BASE_URL + 'tasks/%d/complete' % task['id'])
     task = get_task_by_id(task['id']).json()
     assert task['completed'] is True
-    assert task['completed_at'] == datetime.date.today().strftime("%Y-%m-%d")
 
 
 def test_task_deleting():

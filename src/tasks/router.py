@@ -31,7 +31,7 @@ async def get_task_info(task_id: int, db: Session = Depends(get_db)):
 
 @router.post("/", status_code=201, response_model=schemas.Task)
 async def append_new_task(task: schemas.TaskCreate, db: Session = Depends(get_db)):
-    new_task = models.Task(title=task.title, text=task.text)
+    new_task = models.Task(title=task.title, text=task.text, deadline=task.deadline)
     db.add(new_task)
     db.commit()
     db.refresh(new_task)
@@ -44,7 +44,6 @@ async def mark_completed(task_id: int, db: Session = Depends(get_db)):
     if task.completed:
         raise HTTPException(409, "Task with id %d already completed" % task_id)
     task.completed = True
-    task.completed_at = datetime.date.today()
     db.commit()
     db.refresh(task)
     return {'status': 200}

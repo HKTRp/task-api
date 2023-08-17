@@ -8,5 +8,5 @@ class Task(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(64), nullable=False, index=True)
     text = Column(String(1024), nullable=False)
-    completed_at = Column(Date, nullable=True, index=True)
+    deadline = Column(Date, nullable=True, index=True)
     completed = Column(Boolean, default=False, nullable=False)
